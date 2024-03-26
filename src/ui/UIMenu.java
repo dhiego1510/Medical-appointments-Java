@@ -1,9 +1,17 @@
 package ui;
 
+import model.Doctor;
+import model.Patient;
+
+import javax.print.Doc;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Scanner;
 public class UIMenu {
   public static final String[] MONTHS = {"January","February","March","April","May","June","July","August",
           "September","October","November","December"};
+  public static Doctor doctorLogged;
+  public static Patient patientLogged;
    public static void showMenu(){
     System.out.println("Welcome to My Appointments");
     System.out.println("Selecciona la opción deseada");
@@ -19,11 +27,13 @@ public class UIMenu {
 
       switch (response){
         case 1:
-          System.out.println("model.Doctor");
+          System.out.println("Doctor");
+          response = 0;
+          autUser(1);
           break;
         case 2:
           response = 0;
-          showPatientMenu();
+          autUser(2);
 
           break;
         case 0:
@@ -33,6 +43,50 @@ public class UIMenu {
           System.out.println("Please select a correct answer");
       }
     }while (response != 0);
+  }
+
+  private static void autUser(int userType ){
+
+    ArrayList<Doctor> doctors = new ArrayList<>();
+    doctors.add(new Doctor("Alejandro Martinez", "ale@doctor.com"));
+    doctors.add(new Doctor("Karen Sosa", "karen@doctor.com"));
+    doctors.add(new Doctor("Rocio Gomez", "rocio@doctor.com"));
+
+
+    ArrayList<Patient> patients = new ArrayList<>();
+    patients.add(new Patient("Sonia Fonseca", "sonia@gmail.com"));
+    patients.add(new Patient("Carlos Valle", "carl@gmail.com"));
+    patients.add(new Patient("Pedro Rios", "pedro@gmail.com"));
+
+    boolean emailCorrect = false;
+    do {
+      System.out.println("Inser your email: ");
+      Scanner sc = new Scanner(System.in);
+      String email = sc.nextLine();
+      if(userType == 1) {
+
+        for (Doctor d: doctors){
+          if(d.getEmail().equals(email)){
+            emailCorrect = true;
+            doctorLogged = d;
+          }
+        }
+      }
+
+      if(userType == 2) {
+
+        for (Patient p: patients) {
+          if(p.getEmail().equals(email)) {
+            emailCorrect = true;
+            patientLogged = p;
+          }
+        }
+      }
+
+
+    }while(!emailCorrect);
+
+
   }
 
   static void showPatientMenu(){
