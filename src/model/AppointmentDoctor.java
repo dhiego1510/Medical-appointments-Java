@@ -8,6 +8,11 @@ public class AppointmentDoctor implements IProgrammable{
   private Date date;
   private String time;
 
+  public AppointmentDoctor(Patient patient, Doctor doctor) {
+    this.patient = patient;
+    this.doctor = doctor;
+  }
+
   public int getId() {
     return id;
   }
@@ -41,7 +46,7 @@ public class AppointmentDoctor implements IProgrammable{
   }
 
   public String getTime() {
-    return time;
+    return time + "hrs.";
   }
 
   public void setTime(String time) {
@@ -50,6 +55,7 @@ public class AppointmentDoctor implements IProgrammable{
 
   @Override
   public void program(Date date, String time) {
-
+    this.date = date;
+    this.time = time;
   }
 }
